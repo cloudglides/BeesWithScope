@@ -1,0 +1,13 @@
+.git
+.env
+_build
+deps
+doc
+tmp
+result
+result-*
+*.ez
+erl_crash.dump
+Containerfile
+.containerignore
+Makefile
