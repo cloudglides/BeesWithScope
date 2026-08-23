@@ -10,6 +10,17 @@ defmodule BeesWithScope.UnfurlTest do
     end
   end
 
+  setup do
+    Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, :unfurl_domains, ["cloudglides.hackclub.app"])
+
+    on_exit(fn ->
+      Application.delete_env(:bees_with_scope, :unfurl_domains)
+    end)
+
+    :ok
+  end
+
   describe "workflow_name/1" do
     test "extracts the workflow name from a matching domain" do
       assert Unfurl.workflow_name("http://cloudglides.hackclub.app:4000/workflow/kidnap") ==

@@ -38,7 +38,9 @@ Create `.env` in the repo root:
 ```bash
 SLACK_APP_TOKEN=xapp-...
 SLACK_BOT_TOKEN=xoxb-...
-PORT=4000            # optional, defaults to 4000
+WORKFLOW_CHANNEL=C0...        # channel to invite people into / post buttons to
+UNFURL_DOMAINS=cloudglides.hackclub.app   # comma-separated
+PORT=4000                     # optional, defaults to 4000
 ```
 
 ## Running

@@ -12,6 +12,12 @@ defmodule BeesWithScope.WorkflowTest do
 
   setup do
     Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, :channel, "C_TEST")
+
+    on_exit(fn ->
+      Application.delete_env(:bees_with_scope, :channel)
+    end)
+
     :ok
   end
 
@@ -35,7 +41,7 @@ defmodule BeesWithScope.WorkflowTest do
     assert Workflow.post("kidnap", StubAPI) == {:ok, %{"ok" => true}}
 
     assert_received {:api_post, "chat.postMessage", "xoxb-test", args}
-    assert args.channel == "C08TLJR2HD1"
+    assert args.channel == "C_TEST"
     assert Jason.decode!(args.blocks) == Jason.decode!(Jason.encode!(Workflow.blocks("kidnap")))
   end
 end

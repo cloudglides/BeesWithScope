@@ -24,6 +24,12 @@ defmodule BeesWithScope.InviterTest do
 
   setup do
     Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, :channel, "C_TEST")
+
+    on_exit(fn ->
+      Application.delete_env(:bees_with_scope, :channel)
+    end)
+
     :ok
   end
 
@@ -32,7 +38,7 @@ defmodule BeesWithScope.InviterTest do
 
     assert_received {:api_post, "conversations.invite", "xoxb-test",
                      %{
-                       channel: "C08TLJR2HD1",
+                       channel: "C_TEST",
                        users: "U_CLICKER"
                      }}
   end

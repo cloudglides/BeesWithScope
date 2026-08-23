@@ -1,8 +1,6 @@
 defmodule BeesWithScope.Unfurl do
-  @default_domains ["cloudglides.hackclub.app"]
-
   def domains do
-    Application.get_env(:bees_with_scope, :unfurl_domains, @default_domains)
+    Application.get_env(:bees_with_scope, :unfurl_domains, [])
   end
 
   def workflow_name(url) do

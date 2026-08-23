@@ -3,6 +3,10 @@ FROM docker.io/library/elixir:1.17-slim AS build
 WORKDIR /app
 ENV MIX_ENV=prod
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN mix local.hex --force && mix local.rebar --force
 
 COPY mix.exs mix.lock ./
