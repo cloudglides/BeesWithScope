@@ -1,4 +1,4 @@
-FROM elixir:1.17-slim AS build
+FROM docker.io/library/elixir:1.17-slim AS build
 
 WORKDIR /app
 ENV MIX_ENV=prod
@@ -13,7 +13,7 @@ COPY config/ config/
 COPY lib/ lib/
 RUN mix compile && mix release
 
-FROM debian:bookworm-slim
+FROM docker.io/library/debian:bookworm-slim
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
