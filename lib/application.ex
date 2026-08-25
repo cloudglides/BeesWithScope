@@ -5,7 +5,7 @@ defmodule BeesWithScope.Application do
   def start(_type, _args) do
     children =
       if Application.get_env(:bees_with_scope, :start_slack, true) do
-        [{Slack.Supervisor, Application.fetch_env!(:bees_with_scope, BeesWithScope.Hive)}]
+        [{Slack.Supervisor, Application.fetch_env!(:bees_with_scope, BeesWithScope.Slack.Bot)}]
       else
         []
       end
@@ -15,7 +15,7 @@ defmodule BeesWithScope.Application do
         children ++
           [
             {Bandit,
-             plug: BeesWithScope.Router, port: Application.fetch_env!(:bees_with_scope, :port)}
+             plug: BeesWithScope.Web.Router, port: Application.fetch_env!(:bees_with_scope, :port)}
           ]
       else
         children

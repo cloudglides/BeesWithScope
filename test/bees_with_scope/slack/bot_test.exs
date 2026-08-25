@@ -1,7 +1,7 @@
-defmodule BeesWithScope.HiveTest do
+defmodule BeesWithScope.Slack.BotTest do
   use ExUnit.Case
 
-  alias BeesWithScope.Hive
+  alias BeesWithScope.Slack.Bot
 
   @payload %{
     "type" => "block_actions",
@@ -14,7 +14,7 @@ defmodule BeesWithScope.HiveTest do
     parent = self()
 
     assert :ok =
-             Hive.handle_block_actions(@payload, fn user_id ->
+             Bot.handle_block_actions(@payload, fn user_id ->
                send(parent, {:invited, user_id})
                :ok
              end)
@@ -25,6 +25,6 @@ defmodule BeesWithScope.HiveTest do
   test "other buttons are ignored" do
     payload = put_in(@payload, ["actions"], [%{"action_id" => "something_else"}])
 
-    assert :ok = Hive.handle_block_actions(payload, fn _user_id -> flunk("should not invite") end)
+    assert :ok = Bot.handle_block_actions(payload, fn _user_id -> flunk("should not invite") end)
   end
 end

@@ -1,7 +1,7 @@
-defmodule BeesWithScope.WorkflowTest do
+defmodule BeesWithScope.Slack.JoinLinkTest do
   use ExUnit.Case
 
-  alias BeesWithScope.Workflow
+  alias BeesWithScope.Slack.JoinLink
 
   defmodule StubAPI do
     def post(endpoint, token, args) do
@@ -11,7 +11,7 @@ defmodule BeesWithScope.WorkflowTest do
   end
 
   setup do
-    Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, BeesWithScope.Slack.Bot, bot_token: "xoxb-test")
     Application.put_env(:bees_with_scope, :channel, "C_TEST")
 
     on_exit(fn ->
@@ -25,7 +25,7 @@ defmodule BeesWithScope.WorkflowTest do
     assert [
              %{type: "section", text: %{type: "mrkdwn", text: text}},
              %{type: "actions", elements: [button]}
-           ] = Workflow.blocks("kidnap")
+           ] = JoinLink.blocks("kidnap")
 
     assert text =~ "*kidnap*"
 
@@ -38,10 +38,10 @@ defmodule BeesWithScope.WorkflowTest do
   end
 
   test "post sends the blocks to the channel with the bot token" do
-    assert Workflow.post("kidnap", StubAPI) == {:ok, %{"ok" => true}}
+    assert JoinLink.post("kidnap", StubAPI) == {:ok, %{"ok" => true}}
 
     assert_received {:api_post, "chat.postMessage", "xoxb-test", args}
     assert args.channel == "C_TEST"
-    assert Jason.decode!(args.blocks) == Jason.decode!(Jason.encode!(Workflow.blocks("kidnap")))
+    assert Jason.decode!(args.blocks) == Jason.decode!(Jason.encode!(JoinLink.blocks("kidnap")))
   end
 end

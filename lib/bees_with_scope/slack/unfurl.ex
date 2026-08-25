@@ -1,4 +1,4 @@
-defmodule BeesWithScope.Unfurl do
+defmodule BeesWithScope.Slack.Unfurl do
   def domains do
     Application.get_env(:bees_with_scope, :unfurl_domains, [])
   end
@@ -17,14 +17,14 @@ defmodule BeesWithScope.Unfurl do
   def handle(event, api \\ Slack.API)
 
   def handle(%{"links" => links, "message_ts" => ts, "channel" => channel}, api) do
-    bot_token = Application.fetch_env!(:bees_with_scope, BeesWithScope.Hive)[:bot_token]
+    bot_token = Application.fetch_env!(:bees_with_scope, BeesWithScope.Slack.Bot)[:bot_token]
 
     unfurls =
       for link <- links,
           url = link["url"],
           name = workflow_name(url),
           into: %{} do
-        {url, %{"blocks" => BeesWithScope.Workflow.blocks(name)}}
+        {url, %{"blocks" => BeesWithScope.Slack.JoinLink.blocks(name)}}
       end
 
     if map_size(unfurls) > 0 do

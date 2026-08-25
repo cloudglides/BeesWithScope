@@ -1,4 +1,4 @@
-defmodule BeesWithScope.Router do
+defmodule BeesWithScope.Web.Router do
   use Plug.Router
 
   plug(:match)
@@ -11,7 +11,7 @@ defmodule BeesWithScope.Router do
   end
 
   post "/workflow/:name" do
-    workflow = Application.get_env(:bees_with_scope, :workflow_mod, BeesWithScope.Workflow)
+    workflow = Application.get_env(:bees_with_scope, :workflow_mod, BeesWithScope.Slack.JoinLink)
 
     case workflow.post(name) do
       {:ok, _} ->

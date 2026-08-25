@@ -1,7 +1,7 @@
-defmodule BeesWithScope.InviterTest do
+defmodule BeesWithScope.Slack.InviterTest do
   use ExUnit.Case
 
-  alias BeesWithScope.Inviter
+  alias BeesWithScope.Slack.Inviter
 
   defmodule StubAPI do
     def post(endpoint, token, args) do
@@ -23,7 +23,7 @@ defmodule BeesWithScope.InviterTest do
   end
 
   setup do
-    Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, BeesWithScope.Slack.Bot, bot_token: "xoxb-test")
     Application.put_env(:bees_with_scope, :channel, "C_TEST")
 
     on_exit(fn ->

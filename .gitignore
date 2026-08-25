@@ -34,3 +34,4 @@ bees_with_scope-*.tar
 # Vendored dep packaging artifacts
 vendor/**/.hex
 vendor/**/hex_metadata.config
+result

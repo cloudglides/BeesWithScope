@@ -1,7 +1,7 @@
-defmodule BeesWithScope.UnfurlTest do
+defmodule BeesWithScope.Slack.UnfurlTest do
   use ExUnit.Case
 
-  alias BeesWithScope.Unfurl
+  alias BeesWithScope.Slack.Unfurl
 
   defmodule StubAPI do
     def post(endpoint, token, args) do
@@ -11,7 +11,7 @@ defmodule BeesWithScope.UnfurlTest do
   end
 
   setup do
-    Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, BeesWithScope.Slack.Bot, bot_token: "xoxb-test")
     Application.put_env(:bees_with_scope, :unfurl_domains, ["cloudglides.hackclub.app"])
 
     on_exit(fn ->
@@ -40,7 +40,7 @@ defmodule BeesWithScope.UnfurlTest do
   end
 
   test "link_shared event unfurls with a join button" do
-    Application.put_env(:bees_with_scope, BeesWithScope.Hive, bot_token: "xoxb-test")
+    Application.put_env(:bees_with_scope, BeesWithScope.Slack.Bot, bot_token: "xoxb-test")
 
     event = %{
       "type" => "link_shared",

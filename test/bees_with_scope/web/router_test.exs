@@ -1,10 +1,10 @@
-defmodule BeesWithScope.RouterTest do
+defmodule BeesWithScope.Web.RouterTest do
   use ExUnit.Case, async: false
 
   import Plug.Conn
   import Plug.Test
 
-  alias BeesWithScope.Router
+  alias BeesWithScope.Web.Router
 
   defmodule StubWorkflow do
     def post(name) do

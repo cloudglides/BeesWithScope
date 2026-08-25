@@ -80,3 +80,9 @@ make build && make run -e PORT=4000 ...
 # or on the server:
 podman run -d --name bees --env-file .env -p 127.0.0.1:4000:4000 localhost/bees
 ```
+
+## License
+
+BeesWithScope — Copyright (C) 2026 cloudglides
+
+Licensed under the GNU GPL-3.0. See [LICENSE](LICENSE).

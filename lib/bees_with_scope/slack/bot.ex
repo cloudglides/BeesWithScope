@@ -1,10 +1,10 @@
-defmodule BeesWithScope.Hive do
+defmodule BeesWithScope.Slack.Bot do
   use Slack.Bot
   require Logger
 
-  import BeesWithScope.Parser, only: [parse: 1]
-  import BeesWithScope.GHAuth, only: [fetch_pr: 3]
-  import BeesWithScope.Poster, only: [build: 4]
+  import BeesWithScope.GitHub.PRRef, only: [parse: 1]
+  import BeesWithScope.GitHub.PR, only: [fetch_pr: 3]
+  import BeesWithScope.Slack.PRMessage, only: [build: 4]
 
   @impl true
   def handle_event("message", %{"bot_id" => _}, _bot), do: :ok
@@ -16,7 +16,7 @@ defmodule BeesWithScope.Hive do
   def handle_event("block_actions", payload, _bot), do: handle_block_actions(payload)
 
   def handle_event("link_shared", event, _bot) do
-    case BeesWithScope.Unfurl.handle(event) do
+    case BeesWithScope.Slack.Unfurl.handle(event) do
       {:ok, _} ->
         Logger.info("Unfurled workflow link")
         :ok
@@ -31,7 +31,7 @@ defmodule BeesWithScope.Hive do
 
   def handle_event(_type, _payload, _bot), do: :ok
 
-  def handle_block_actions(payload, invite \\ &BeesWithScope.Inviter.invite/1)
+  def handle_block_actions(payload, invite \\ &BeesWithScope.Slack.Inviter.invite/1)
 
   def handle_block_actions(
         %{"user" => %{"id" => user_id}, "actions" => actions} = payload,

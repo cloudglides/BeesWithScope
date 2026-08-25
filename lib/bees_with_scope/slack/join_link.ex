@@ -1,6 +1,6 @@
-defmodule BeesWithScope.Workflow do
+defmodule BeesWithScope.Slack.JoinLink do
   def post(name, api \\ Slack.API) do
-    bot_token = Application.fetch_env!(:bees_with_scope, BeesWithScope.Hive)[:bot_token]
+    bot_token = Application.fetch_env!(:bees_with_scope, BeesWithScope.Slack.Bot)[:bot_token]
     channel = Application.fetch_env!(:bees_with_scope, :channel)
 
     api.post("chat.postMessage", bot_token, %{

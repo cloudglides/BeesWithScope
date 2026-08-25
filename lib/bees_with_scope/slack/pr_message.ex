@@ -1,4 +1,4 @@
-defmodule BeesWithScope.Poster do
+defmodule BeesWithScope.Slack.PRMessage do
   def build(repo_owner, repo_name, number, pr) do
     [
       section_block(number, pr["title"]),

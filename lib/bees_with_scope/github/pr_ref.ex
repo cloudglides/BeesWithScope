@@ -1,4 +1,4 @@
-defmodule BeesWithScope.Parser do
+defmodule BeesWithScope.GitHub.PRRef do
   @pr_ref ~r/([\w-]+)[:\/]([\w-]+)#(\d+)/
   @bare_ref ~r/#(\d+)/
 

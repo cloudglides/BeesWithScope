@@ -4,19 +4,19 @@ import Dotenvy
 source!([".env", System.get_env()])
 
 if config_env() == :test do
-  config :bees_with_scope, BeesWithScope.Hive,
+  config :bees_with_scope, BeesWithScope.Slack.Bot,
     app_token: "test-app-token",
     bot_token: "test-bot-token",
-    bot: BeesWithScope.Hive
+    bot: BeesWithScope.Slack.Bot
 
   config :bees_with_scope, :port, 4000
   config :bees_with_scope, :channel, "C_TEST"
   config :bees_with_scope, :unfurl_domains, ["cloudglides.hackclub.app"]
 else
-  config :bees_with_scope, BeesWithScope.Hive,
+  config :bees_with_scope, BeesWithScope.Slack.Bot,
     app_token: env!("SLACK_APP_TOKEN", :string),
     bot_token: env!("SLACK_BOT_TOKEN", :string),
-    bot: BeesWithScope.Hive
+    bot: BeesWithScope.Slack.Bot
 
   config :bees_with_scope, :port, env!("PORT", :integer, 4000)
   config :bees_with_scope, :channel, env!("WORKFLOW_CHANNEL", :string)
